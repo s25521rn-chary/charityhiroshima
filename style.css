@@ -1,0 +1,314 @@
+/* ============================================================
+   Hiroshima: Home Away From Home — shared stylesheet
+   Editorial Japanese aesthetic · washi paper + sumi ink + hinomaru red
+   ============================================================ */
+
+:root {
+    --ink:        #1b1b1a;   /* sumi ink             */
+    --paper:      #f6f1e7;   /* warm washi paper     */
+    --paper-2:    #efe7d6;   /* deeper paper         */
+    --vermilion:  #bc002d;   /* hinomaru / torii red */
+    --vermilion-d:#8f0021;
+    --cedar:      #4a5d4e;   /* muted shrine green   */
+    --muted:      #6b6358;   /* warm secondary text  */
+    --line:       rgba(27, 27, 26, 0.14);
+    --shadow:     0 18px 40px -22px rgba(27, 27, 26, 0.45);
+    --maxw:       1080px;
+    --read:       760px;     /* comfortable reading column */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    color: var(--ink);
+    line-height: 1.75;
+    background-color: var(--paper);
+    background-image:
+        radial-gradient(120% 90% at 88% -10%, rgba(188, 0, 45, 0.10), transparent 55%),
+        radial-gradient(80% 60% at 0% 110%, rgba(74, 93, 78, 0.10), transparent 60%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+a { color: var(--vermilion-d); }
+
+/* ---------- Header / Nav ---------- */
+.topbar {
+    height: 5px;
+    background: linear-gradient(90deg, var(--vermilion) 0%, var(--vermilion-d) 100%);
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 16px clamp(20px, 5vw, 56px);
+    background: rgba(246, 241, 231, 0.86);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+}
+
+.brand { display: flex; align-items: baseline; gap: 12px; text-decoration: none; color: var(--ink); }
+.brand .kanji {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 800; font-size: 1.5rem; color: var(--vermilion); letter-spacing: 2px;
+}
+.brand .romaji {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
+    font-size: 0.82rem; color: var(--muted);
+}
+
+.nav-links { display: flex; flex-wrap: wrap; gap: clamp(10px, 2vw, 26px); align-items: center; }
+.nav-links a {
+    position: relative; text-decoration: none; color: var(--muted);
+    font-weight: 500; font-size: 0.95rem; padding: 4px 2px; transition: color 0.25s ease;
+}
+.nav-links a::after {
+    content: ""; position: absolute; left: 0; bottom: -3px;
+    width: 100%; height: 2px; background: var(--vermilion);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.28s ease;
+}
+.nav-links a:hover, .nav-links a:focus-visible { color: var(--ink); }
+.nav-links a:hover::after, .nav-links a:focus-visible::after { transform: scaleX(1); }
+.nav-links a[aria-current="page"] { color: var(--ink); font-weight: 700; }
+.nav-links a[aria-current="page"]::after { transform: scaleX(1); }
+
+:focus-visible { outline: 2px solid var(--vermilion); outline-offset: 3px; border-radius: 2px; }
+
+/* ---------- Layout ---------- */
+main { display: block; }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px); }
+
+.eyebrow {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 0.8rem; letter-spacing: 5px; text-transform: uppercase;
+    color: var(--vermilion); margin: 0 0 18px;
+}
+
+/* ---------- Hero (home) ---------- */
+.hero { position: relative; overflow: hidden; padding: clamp(60px, 10vw, 120px) 0 clamp(40px, 7vw, 90px); }
+.hero::before {
+    content: ""; position: absolute; top: 50%; right: clamp(-160px, -6vw, -60px);
+    transform: translateY(-50%); width: clamp(280px, 38vw, 560px); aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 38% 34%, #d61b46, var(--vermilion) 58%, var(--vermilion-d));
+    opacity: 0.12; z-index: 0;
+}
+.hero .wrap { position: relative; z-index: 1; }
+.hero h1 {
+    font-family: 'Shippori Mincho', serif; font-weight: 800;
+    font-size: clamp(3rem, 11vw, 7.2rem); line-height: 0.96; letter-spacing: -1px;
+    margin: 0; color: var(--ink);
+}
+.hero h1 .accent { color: var(--vermilion); }
+.hero .tagline {
+    font-family: 'Shippori Mincho', serif; font-style: italic;
+    font-size: clamp(1.15rem, 3vw, 1.9rem); color: var(--cedar);
+    margin: 10px 0 28px; font-weight: 500;
+}
+.lead { max-width: 60ch; font-size: clamp(1.05rem, 1.6vw, 1.22rem); color: #34322d; margin: 0; }
+
+/* ---------- Page hero (inner pages, with optional photo) ---------- */
+.page-hero {
+    position: relative; overflow: hidden;
+    padding: clamp(56px, 8vw, 104px) 0 clamp(40px, 6vw, 72px);
+    border-bottom: 1px solid var(--line);
+}
+.page-hero.has-photo { color: #fff; border-bottom: none; }
+.page-hero.has-photo::before {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background-image: var(--hero-img);
+    background-size: cover; background-position: center;
+    transform: scale(1.03); filter: saturate(1.02);
+}
+.page-hero.has-photo::after {
+    content: ""; position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, rgba(27,27,26,0.35) 0%, rgba(27,27,26,0.78) 100%);
+}
+.page-hero .wrap { position: relative; z-index: 2; }
+.page-hero .eyebrow { color: var(--vermilion); }
+.page-hero.has-photo .eyebrow { color: #ff8aa0; }
+.page-hero h1 {
+    font-family: 'Shippori Mincho', serif; font-weight: 800;
+    font-size: clamp(2.4rem, 6.5vw, 4.6rem); line-height: 1.02; letter-spacing: -0.5px; margin: 0;
+}
+.page-hero.has-photo h1 { color: #fff; }
+.page-hero .kicker {
+    font-family: 'Shippori Mincho', serif; font-style: italic; font-weight: 500;
+    font-size: clamp(1.05rem, 2.4vw, 1.5rem); color: var(--cedar); margin: 12px 0 0;
+}
+.page-hero.has-photo .kicker { color: #e9e3d6; }
+
+/* ---------- Sections & typography ---------- */
+section { padding: clamp(48px, 7vw, 84px) 0; }
+.section-divider { border: 0; border-top: 1px solid var(--line); margin: 0; }
+
+h2 {
+    font-family: 'Shippori Mincho', serif; font-weight: 700;
+    font-size: clamp(1.7rem, 3.6vw, 2.5rem); line-height: 1.15; margin: 0 0 8px; color: var(--ink);
+}
+h2 .num { font-size: 0.9rem; color: var(--vermilion); letter-spacing: 2px; vertical-align: super; margin-right: 10px; }
+
+h3 { font-family: 'Shippori Mincho', serif; font-size: 1.35rem; color: var(--ink); margin: 0 0 6px; }
+
+.prose { max-width: var(--read); }
+.prose p { color: #34322d; }
+.prose p, .lead { text-wrap: pretty; }
+
+/* Article-style reading column with a drop-accent first line */
+.article { max-width: var(--read); }
+.article p { color: #34322d; font-size: 1.08rem; margin: 0 0 18px; }
+.article p.intro { font-size: 1.18rem; color: #2a2825; }
+
+/* ---------- Prefecture grid (home) ---------- */
+.pref-grid {
+    list-style: none; margin: 32px 0 0; padding: 0;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px; counter-reset: pref;
+}
+.pref-grid li {
+    counter-increment: pref; position: relative; background: #fffdf8;
+    border: 1px solid var(--line); border-left: 4px solid var(--cedar);
+    border-radius: 4px; padding: 18px 20px 18px 22px; font-weight: 500;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.pref-grid li::before {
+    content: "0" counter(pref); display: block;
+    font-family: 'Shippori Mincho', serif; font-size: 0.8rem; letter-spacing: 1px;
+    color: var(--muted); margin-bottom: 4px;
+}
+.pref-grid li:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.pref-grid li.is-home { border-left-color: var(--vermilion); background: linear-gradient(180deg, #fff5f6, #fffdf8); }
+.pref-grid li.is-home::after {
+    content: "You are here"; position: absolute; top: 16px; right: 16px;
+    font-size: 0.66rem; letter-spacing: 1px; text-transform: uppercase; color: var(--vermilion); font-weight: 700;
+}
+
+/* ---------- Stack list (named sites / features) ---------- */
+.stack-list { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 14px; }
+.stack-list li {
+    background: #fffdf8; border: 1px solid var(--line); border-left: 4px solid var(--cedar);
+    border-radius: 4px; padding: 18px 22px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.stack-list li:hover { transform: translateX(5px); box-shadow: var(--shadow); border-left-color: var(--vermilion); }
+.stack-list li strong { display: block; font-family: 'Shippori Mincho', serif; font-size: 1.1rem; margin-bottom: 2px; color: var(--ink); }
+.stack-list li span { color: #34322d; }
+
+/* Ordered, numbered feature list (miyajima) */
+ol.num-list { counter-reset: item; list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 12px; }
+ol.num-list li {
+    counter-increment: item; position: relative; padding: 16px 20px 16px 64px;
+    background: #fffdf8; border: 1px solid var(--line); border-radius: 6px; color: #34322d;
+}
+ol.num-list li::before {
+    content: counter(item, decimal-leading-zero);
+    position: absolute; left: 18px; top: 16px;
+    font-family: 'Shippori Mincho', serif; font-weight: 700; color: var(--vermilion); font-size: 1.1rem;
+}
+ol.num-list li strong { color: var(--ink); }
+
+/* ---------- Figures & images ---------- */
+figure.map, figure.feature { margin: 40px 0 0; text-align: center; }
+figure.map img, figure.feature img {
+    max-width: 100%; height: auto; border-radius: 8px; border: 1px solid var(--line);
+    box-shadow: var(--shadow); background: #fffdf8;
+}
+figure.feature.cover img { width: 100%; max-height: 460px; object-fit: cover; }
+figcaption { margin-top: 14px; font-size: 0.9rem; color: var(--muted); font-style: italic; }
+
+/* ---------- Gallery (miyajima) ---------- */
+.gallery {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 18px; margin-top: 34px;
+}
+.gallery-item {
+    background: #fffdf8; border: 1px solid var(--line); border-radius: 8px;
+    overflow: hidden; transition: transform 0.2s ease, box-shadow 0.2s ease; display: flex; flex-direction: column;
+}
+.gallery-item a { display: block; overflow: hidden; }
+.gallery-item img { width: 100%; height: 200px; object-fit: cover; display: block; transition: transform 0.4s ease; }
+.gallery-item:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+.gallery-item:hover img { transform: scale(1.06); }
+.gallery-item .desc {
+    padding: 14px 16px; text-align: center; font-family: 'Shippori Mincho', serif;
+    font-weight: 600; color: var(--ink);
+}
+
+/* ---------- Hub cards / link cards ---------- */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; margin-top: 34px; }
+.card {
+    display: flex; flex-direction: column; text-decoration: none; color: inherit;
+    background: #fffdf8; border: 1px solid var(--line); border-radius: 8px; padding: 26px 24px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.card .card-jp { font-family: 'Shippori Mincho', serif; color: var(--vermilion); font-weight: 700; font-size: 1.05rem; letter-spacing: 2px; }
+.card h3 { font-size: 1.3rem; margin: 6px 0 8px; }
+.card p { margin: 0 0 18px; color: var(--muted); font-size: 0.96rem; }
+.card .go { margin-top: auto; font-weight: 700; font-size: 0.9rem; color: var(--vermilion-d); letter-spacing: 0.5px; }
+.card .go::after { content: " →"; transition: margin-left 0.2s ease; }
+.card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--vermilion); }
+.card:hover .go::after { margin-left: 6px; }
+
+/* ---------- Watch / link buttons (atomic bomb) ---------- */
+.watch-row { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 26px; }
+.watch {
+    display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+    background: var(--ink); color: #fff; padding: 13px 22px; border-radius: 40px;
+    font-weight: 600; font-size: 0.96rem; transition: background 0.25s ease, transform 0.2s ease;
+}
+.watch::before { content: "▶"; font-size: 0.7rem; color: #ff5a78; }
+.watch:hover { background: var(--vermilion-d); transform: translateY(-2px); }
+.watch.alt { background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+.watch.alt::before { color: var(--vermilion); }
+.watch.alt:hover { background: var(--ink); color: #fff; }
+
+/* Pull-quote */
+.pullquote {
+    font-family: 'Shippori Mincho', serif; font-style: italic;
+    font-size: clamp(1.3rem, 3vw, 1.9rem); line-height: 1.4; color: var(--ink);
+    border-left: 4px solid var(--vermilion); padding: 6px 0 6px 26px; margin: 36px 0; max-width: var(--read);
+}
+
+/* ---------- Footer ---------- */
+footer { background: var(--ink); color: #e9e3d6; padding: clamp(44px, 6vw, 70px) 0 36px; margin-top: 40px; }
+footer .wrap { display: grid; gap: 26px; }
+footer .peace {
+    font-family: 'Shippori Mincho', serif; font-style: italic;
+    font-size: clamp(1.1rem, 2.4vw, 1.5rem); color: #fff; margin: 0; max-width: 32ch;
+}
+footer .peace span { color: #ff5a78; }
+.foot-meta {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.14); padding-top: 24px; font-size: 0.88rem; color: #b9b2a4;
+}
+.foot-nav { display: flex; flex-wrap: wrap; gap: 16px; }
+.foot-meta a, .foot-nav a { color: #e9e3d6; text-decoration: none; }
+.foot-meta a { border-bottom: 1px solid rgba(255,255,255,0.3); }
+.foot-nav a:hover, .foot-meta a:hover { color: #fff; }
+
+/* ---------- Entrance motion ---------- */
+@media (prefers-reduced-motion: no-preference) {
+    .reveal { opacity: 0; transform: translateY(22px); animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) forwards; }
+    .d1 { animation-delay: 0.05s; }
+    .d2 { animation-delay: 0.18s; }
+    .d3 { animation-delay: 0.31s; }
+    .d4 { animation-delay: 0.44s; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+}
+
+@media (max-width: 560px) {
+    .site-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .pref-grid li.is-home::after { position: static; display: block; margin-top: 6px; }
+    .gallery-item img { height: 170px; }
+}
